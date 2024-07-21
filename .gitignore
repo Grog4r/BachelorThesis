@@ -1,0 +1,6 @@
+data/experiment_datasets/experiment*
+data/clean
+data/raw
+data/my_datasets/*
+data/runs/*.csv
+*.zip
