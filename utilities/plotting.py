@@ -407,8 +407,8 @@ def plot_iterative_prediction(
     for i, ((pred_df, name), color) in enumerate(zip(pred_dfs, colors)):
         fig.add_trace(
             go.Scatter(
-                x=pred_df["status_time"],
-                y=pred_df[col_to_plot],
+                x=pred_df[pred_df["status_time"] >= prediction_start_date]["status_time"],
+                y=pred_df[pred_df["status_time"] >= prediction_start_date][col_to_plot],
                 mode="lines",
                 name=f"Vorhersage",
                 marker=dict(color=color),
@@ -417,25 +417,26 @@ def plot_iterative_prediction(
             )
         )
 
-        divergence_time = find_divergence_time(
-            test_df, pred_df, divergence_threshold, col=col_to_plot
-        )
-        if divergence_time is not None:
-            print("Adding divergence line")
-            fig.add_trace(
-                go.Scatter(
-                    x=[divergence_time] * 2,
-                    y=[0, 100],
-                    mode="lines",
-                    line=dict(
-                        color=color,
-                        width=2,
-                        dash="dashdot",
-                    ),
-                    name=f"Erste Abweichungs von {divergence_threshold}%",
-                    legendgroup=i,
-                )
+        if divergence_threshold < 100:
+            divergence_time = find_divergence_time(
+                test_df, pred_df, divergence_threshold, col=col_to_plot
             )
+            if divergence_time is not None:
+                print("Adding divergence line")
+                fig.add_trace(
+                    go.Scatter(
+                        x=[divergence_time] * 2,
+                        y=[0, 100],
+                        mode="lines",
+                        line=dict(
+                            color=color,
+                            width=2,
+                            dash="dashdot",
+                        ),
+                        name=f"Erste Abweichung von {divergence_threshold}%",
+                        legendgroup=i,
+                    )
+                )
 
     fig.add_trace(
         go.Scatter(

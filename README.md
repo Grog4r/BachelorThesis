@@ -45,7 +45,7 @@
 - [evaluate_survival_experiment.ipynb](evaluate_survival_experiment.ipynb) is the evaluation notebook for the survival experiment.
 - [find_best_reg_aug_params.ipynb](find_best_reg_aug_params.ipynb) is the notebook that tests and finds the best augmentation parameters for the regression models.
 - [find_best_rsurv_aug_params.ipynb](find_best_surv_aug_params.ipynb) is the notebook that tests and finds the best augmentation parameters for the survival models.
-- The other notebooks all contain some testing code for different parts of the code or they generate plots and other things for the paper.
+- The other notebooks all contain some testing code for different parts of the code or they generate plots and other things for the written Thesis.
 
 ## Environment
 
