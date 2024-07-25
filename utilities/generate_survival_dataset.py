@@ -245,7 +245,7 @@ if __name__ == "__main__":
     BASE_DATASET_PATH = os.environ.get("BASE_DATASET_PATH")
     SURVIVAL_DATASET_PATH = os.environ.get("SURVIVAL_DATASET_PATH")
 
-    SURVIVAL_DATASET_PATH = "/home/nkuechen/Documents/Thesis/code/thesis_code/data/my_datasets/survival_dataset_t20.parquet"
+    SURVIVAL_DATASET_PATH = "/home/nkuechen/Documents/Thesis/code/thesis_code/data/my_datasets/survival_dataset.parquet"
 
     if os.path.exists(BASE_DATASET_PATH):
         df = pd.read_parquet(BASE_DATASET_PATH)
@@ -256,6 +256,6 @@ if __name__ == "__main__":
             "file exists in the specified path."
         )
 
-    survival_df = base_to_survival_dataset(df, event_max_min_thresh=20)
+    survival_df = base_to_survival_dataset(df)
     print(survival_df.info())
     survival_df.to_parquet(SURVIVAL_DATASET_PATH)
