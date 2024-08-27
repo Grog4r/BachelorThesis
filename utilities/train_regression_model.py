@@ -438,12 +438,15 @@ def iterative_prediction(
     for i in range(n_predictions):
         input_datapoint = pd.DataFrame([last_row])[features]
         prediction = model.predict(input_datapoint)[0]
+        if prediction < 0:
+            break
 
         if test_df is not None:
             test_value = test_values[i]
             if abs(prediction - test_value) >= divergence_threshold:
                 n_divergence_times += 1
                 if n_divergence_times == divergence_window:
+                    
                     break
             else:
                 n_divergence_times = 0
